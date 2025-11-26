@@ -21,10 +21,10 @@ Since it's based on ATTiny85, the time will be few minutes off per day, so if yo
 
 ##### Stage 1
 
-Add serial communication and develop controlling app on Windows and Linux (maybe use Qt or some kind of webapp like ZMK Studio) to make user able to custom their own schedule.
+Add serial communication and develop controlling app on Windows and Linux (maybe use Qt or some kind of webapp like ZMK Studio) to make user able to custom their own schedule.  
 
-For example:
-`[1, 3, 1]` = 1 on/off loop, on for 3 hours, off for 1 hour, loop
+For example:  
+`[1, 3, 1]` = 1 on/off loop, on for 3 hours, off for 1 hour, loop  
 `[3, 1, 3, 2, 4, 3, 5]` = 3 on/off loop. On for 1 hour, off for 3 hour, on for 2 hours, off for 4 hours, on for 3 hours, off for 5 hours, loop
 
 Needs to calculate the maximum of milis() func to estimate the suggested and theoretic max hour for a single on or off

@@ -1,6 +1,6 @@
-### This project is still still in the conceptual stage. It have NOT be tested
+> The serial communication function is **still to be developed**. The current code will loop 1hr connect / 4hrs disconnect by default
 
-### A little USB stick that can switch VCC automatically by time based on CH552 or ATtiny85
+## A little USB stick that can switch VCC automatically by time based on CH552 or ATtiny85
 
 ### BOM:
 
@@ -37,7 +37,7 @@ Add `https://raw.githubusercontent.com/DeqingSun/ch55xduino/ch55xduino/package_c
    
    1. Open Zadig, choose `Unknown Device 1`, click `Install Driver` or `Replace Driver`
 
-5. Wait for 3~5 minutes
+5. Wait for up to 3~5 minutes
 
 6. Reconnect the board **after** it's done
 

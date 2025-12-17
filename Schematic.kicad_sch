@@ -1734,6 +1734,12 @@
 		(uuid "c5a22ba2-2659-48dc-8689-1e7cc48defa7")
 	)
 	(junction
+		(at 64.77 69.85)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "cd3fd627-7359-42bf-b0e6-81f6225f2a94")
+	)
+	(junction
 		(at 82.55 86.36)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2027,6 +2033,16 @@
 	)
 	(wire
 		(pts
+			(xy 62.23 76.2) (xy 64.77 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "44711cd6-c234-4457-8532-1b4386a08fde")
+	)
+	(wire
+		(pts
 			(xy 88.9 72.39) (xy 88.9 81.28)
 		)
 		(stroke
@@ -2154,6 +2170,16 @@
 			(type default)
 		)
 		(uuid "7ac94266-c834-4189-b820-e00965f4d2ac")
+	)
+	(wire
+		(pts
+			(xy 64.77 69.85) (xy 93.98 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7bb68c89-3228-40a9-88ff-d605f83037df")
 	)
 	(wire
 		(pts
@@ -2287,7 +2313,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 69.85) (xy 93.98 69.85)
+			(xy 29.21 69.85) (xy 64.77 69.85)
 		)
 		(stroke
 			(width 0)
@@ -2394,6 +2420,16 @@
 			(type default)
 		)
 		(uuid "f64df439-a7e4-4d1b-8c80-f06934f4736f")
+	)
+	(wire
+		(pts
+			(xy 64.77 76.2) (xy 64.77 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f6f7900d-d9aa-4408-a2ae-370970f1f995")
 	)
 	(global_label "Onboard LED"
 		(shape output)

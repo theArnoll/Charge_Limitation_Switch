@@ -4,14 +4,15 @@
 
 ### BOM:
 
-| **Part name**         | **Suggested Model**                             | **Amount** | **Notes**                                                       |
-| --------------------- | ----------------------------------------------- | ---------- | --------------------------------------------------------------- |
-| **Board**             | **Digispark ATTiny85 (Micro USB)** or **CH552** | 1          | It would be better if it comes with pin header.                 |
-| **P-Channel MOSFET**  | **IRF9Z24N** (best) or **IRF9540N**             | 1          | It never will be a bad idea to buy another one.                 |
-| **Resistor**          | **220Ω, 10kΩ**                                  | 1, 1       | 1/4W. 220Ω for protection, 10kΩ for pull up.                    |
-| **USB convert board** | **USB Type-A Male and Female to DIP**           | 1, 1       | Buy a DIP ones for the best usability.                          |
-| **Button Switch**     | **A simple button**                             | 1          | I use a 2 pin one to make everything easier                     |
-| **Circuit board**     | **Single sided Perfboard**                      | 1          | **3x7cm** suggested, although I'm use the one I had in my hand. |
+| **Part name**         | **Suggested Model**                        | **Amount** | **Notes**                                                       |
+| --------------------- | ------------------------------------------ | ---------- | --------------------------------------------------------------- |
+| **Board**             | **CH552** or **Digispark ATTiny85**        | 1          | It would be better if it comes with pin header.                 |
+| **P-Channel MOSFET**  | **IRF9540N** (used) or **IRF9Z24N** (best) | 1          | It never will be a bad idea to buy another one.                 |
+| **Resistor**          | **220Ω, 10kΩ**                             | 1, 1       | 1/4W. 220Ω for protection, 10kΩ for pull up.                    |
+| **USB convert board** | **USB Type-A Male and Female to DIP**      | 1, 1       | Buy a DIP ones for the best usability.                          |
+| **Button Switch**     | **A simple button**                        | 1          | I use a 2 pin one to make everything easier                     |
+| **Capacitor**         | **0.1μF**                                  | 1          | Hardware debounce                                               |
+| **Circuit board**     | **Single sided Perfboard**                 | 1          | **3x7cm** suggested, although I'm use the one I had in my hand. |
 
 MOSFET is to simulate the function of a relay.
 

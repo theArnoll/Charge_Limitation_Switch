@@ -1,18 +1,20 @@
-> The serial communication function is **still to be developed**. The current code will loop 1hr connect / 4hrs disconnect by default
+The serial communication function is **still to be developed**. The current code will loop 1hr enable / 4hrs disable power delivery by default. You'll need to edit and upload the .ino code by yourself to modify the duration.
 
 ## A little USB stick that can switch VCC automatically by time based on CH552 or ATtiny85
 
 ### BOM:
 
-| **Part name**         | **Suggested Model**                        | **Amount** | **Notes**                                                       |
-| --------------------- | ------------------------------------------ | ---------- | --------------------------------------------------------------- |
-| **Board**             | **CH552** or **Digispark ATTiny85**        | 1          | It would be better if it comes with pin header.                 |
-| **P-Channel MOSFET**  | **IRF9540N** (used) or **IRF9Z24N** (best) | 1          | It never will be a bad idea to buy another one.                 |
-| **Resistor**          | **220Ω, 10kΩ**                             | 1, 1       | 1/4W. 220Ω for protection, 10kΩ for pull up.                    |
-| **USB convert board** | **USB Type-A Male and Female to DIP**      | 1, 1       | Buy a DIP ones for the best usability.                          |
-| **Button Switch**     | **A simple button**                        | 1          | I use a 2 pin one to make everything easier                     |
-| **Capacitor**         | **0.1μF**                                  | 1          | Hardware debounce                                               |
-| **Circuit board**     | **Single sided Perfboard**                 | 1          | **3x7cm** suggested, although I'm use the one I had in my hand. |
+| **Part name**             | **Suggested Model**                                                                                                                                            | **Amount**                                              | **Notes**                                                         |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- | ----------------------------------------------------------------- |
+| **Board**                 | **[CH552](#the-way-to-start-using-ch552)**, **[ESP32C3 SuperMini]()** or **Digispark [ATtiny85](#the-way-to-flash-bootloader-to-an-attiny85)**                 | 1                                                       | It would be better if it comes with pin header.                   |
+| **Board Socket**          | **CH552:** DIP-20 IC socket or 1×10 female header<br/>**ESP32C3 SuperMini:** DIP-16 IC socket or 1×8 female header<br/>**ATtiny85:** 1×6 and 1×3 female header | IC socket: 1<br/>Female header: 2 (each 1 for ATtiny85) | Prevent board wasting from wiring false or possible heat damaging |
+| **P-Channel MOSFET**      | **AO3401**                                                                                                                                                     | 1                                                       | Toggling VCC                                                      |
+| **SMD-THT convert board** | **SOT-23 to DIP**                                                                                                                                              | 1                                                       | Make AO3401 be able to use on a perfboard                         |
+| **Resistor**              | **220Ω, 10kΩ**                                                                                                                                                 | 1, 1                                                    | 1/4W. 220Ω for protection, 10kΩ for pull up.                      |
+| **USB convert board**     | **USB Type-A Male and Female to DIP**                                                                                                                          | 1, 1                                                    | Buy a DIP ones for the best usability.                            |
+| **Button Switch**         | **A simple button**                                                                                                                                            | 1                                                       | I use a 2 pin one to make everything easier                       |
+| **Capacitor**             | **0.1μF**                                                                                                                                                      | 1                                                       | Hardware debounce                                                 |
+| **Circuit board**         | **Single sided Perfboard**                                                                                                                                     | 1                                                       | **3x7cm** suggested, although I'm use the one I had in my hand.   |
 
 MOSFET is to simulate the function of a relay.
 
@@ -62,7 +64,19 @@ Arduino should flash the correct bootloader when you upload your code. You can t
 | P3.1  | `31`                  | P1.3  | `13`                  |
 | P3.2  | `32`                  | P2.0  | `20`                  |
 
+### The way to start using ESP32C3 SuperMini
+
+The perfboard wiring picture is compatible with ESP32C3 SuperMini by offset the board  placement lower a row.
+
+**Caution:** You'll need to change the pin definition of the .ino code
+
+Basically the same as an ESP32 <!-- TODO: put ESP32C3 SuperMini tutorial here-->
+
 ### The way to flash bootloader to an ATtiny85
+
+#### Caution: the perfboard wiring picture is not compatible with ATtiny85 by offseting anything
+
+You'll have to wire everything on your own according to the [schematic](./Schematic.svg). You'll need to change the pin definition of the .ino code, too.
 
 #### Raw ATtiny85 IC
 
@@ -95,7 +109,11 @@ Now to the last step: click the `Burn Bootloader` button in `Tools` that's just 
 
 You should now successfully burnt your Bootloader. If the board still doesn't work, that's because you haven't install the USB driver for ATtiny85. Unlike flashing bootloader, the tutorial of this is commonly spread on the internet. You can simply search that online.
 
-### TODOS IN THE FUTURE
+### TODOS IN THE FUTURE <!-- TODO -->
+
+#### To do recently
+
+Upload perfboard wiring picture
 
 #### Stage 1
 
@@ -110,3 +128,62 @@ Needs to calculate the maximum of milis() function to estimate the suggested and
 #### Stage 2
 
 Able to input minutes and hour decimal point (decimal point and hour can convert to minutes in controlling app, but need to see if the maximum minute (because variable type or processor bit) can handle the theoretic max hour)
+
+#### Out of stage
+
+Shorting two pins on the right to turn on light detecting mode.
+Have a photoresistor to detect if the lighting is over a threshold.
+If over a threshold, start the loop. If below a threshold, keep disable power delivery.
+The threshold can be set in real life by shorting another pin by clipper or wire.
+
+This is the pin configure of the mode switching pin and threshold adjusting pin:
+
+```
+Pin:
+A      B      C
+|      |      |
+mode   LOW    threshold toggle
+swchŋ  consistent output
+```
+
+Soldering A-B together: enable the mode
+Touching B-C: record current analog input of the photoresistor pin
+
+Rough codes about the analog pin:
+
+```arduino
+uint8_t photoRth = 128;
+void setup()
+{
+    // ...
+    if(EEPROM.read(254) == 1) photoRth = EEPROM.read(255);
+    // ...
+}
+```
+
+```arduino
+void thresholdUpd(int Dpin, int Apin)
+{
+    if(digitalRead(Dpin) == LOW)
+    {
+        while(digitalRead(Dpin) == LOW);
+        uint8_t rec = analogRead(Apin);
+        if(rec == 255) rec--;
+        EEPROM.record(rec, 255);
+        EEPROM.record(1, 254); // checking byte to confirm the validation of the data
+        photoRth = EEPROM.read(255);
+    }
+}
+```
+
+```arduino
+    if(analogRead(photoRpin) > photoRth)
+    {
+        // the loop code, but make sure start with enable power delivery
+    }
+    else
+    {
+        digitalWrite(gate, LOW);
+        toggle = true; // disable power delivery and record current state
+    }
+```

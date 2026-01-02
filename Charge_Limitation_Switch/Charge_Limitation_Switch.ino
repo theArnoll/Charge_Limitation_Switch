@@ -1,12 +1,17 @@
-#define gate 33
+#define gate 34
 #define btn 35
+#define onboardLED 30
+/* these are CH552 pin.
+   for ESP32C3 SuperMini: gate 0, btn 1, LED 8 */
 
 bool toggle = false;
-uint16_t mins[2] = {60, 60*4}; // {1, 4};
+uint16_t mins[2] = {60, 60*4}; // the loop duration.
+                               // default: {60, 60*4} = 1hr / 4hr. for testiŋ: {1, 4};
 
 void delayMin(uint16_t min)
 {
-  unsigned long endTime = millis() + (min * 60000UL);//(min * 1000UL);
+  unsigned long endTime = millis() + (min * 60000UL);
+                      // for testiŋ: (min * 1000UL); to make it seconds rather than minutes 
   while (millis() < endTime) {
     delay(50); 
     if (digitalRead(btn) == LOW) {
@@ -21,14 +26,14 @@ void setup() {
   pinMode(gate, OUTPUT);
   digitalWrite(gate, HIGH);
   pinMode(btn, INPUT_PULLUP);
-  pinMode(30, OUTPUT);
+  pinMode(onboardLED, OUTPUT);
 }
 
 
 void loop() {
   // put your main code here, to run repeatedly:
   digitalWrite(gate, toggle);
-  digitalWrite(30, !toggle);
+  digitalWrite(onboardLED, !toggle);
   delayMin(mins[toggle]);
   toggle = !toggle;
 }

@@ -1,4 +1,4 @@
-The serial communication function is **still to be developed**. The current code will loop 1hr enable / 4hrs disable power delivery by default. You'll need to edit and upload the .ino code by yourself to modify the duration.
+The serial communication function is **still to be developed**. The current code will loop 30min enable / 2hrs disable power delivery by default. You'll need to edit and upload the .ino code by yourself to modify the duration.
 
 ## A little USB stick that can switch VCC automatically by time based on CH552 or ATtiny85
 
@@ -152,7 +152,7 @@ Touching B-C: record current analog input of the photoresistor pin
 
 Rough codes about the analog pin:
 
-```arduino
+```cpp
 uint8_t photoRth = 128;
 void setup()
 {
@@ -162,7 +162,7 @@ void setup()
 }
 ```
 
-```arduino
+```cpp
 void thresholdUpd(int Dpin, int Apin)
 {
     if(digitalRead(Dpin) == LOW)
@@ -177,7 +177,7 @@ void thresholdUpd(int Dpin, int Apin)
 }
 ```
 
-```arduino
+```cpp
     if(analogRead(photoRpin) > photoRth)
     {
         // the loop code, but make sure start with enable power delivery

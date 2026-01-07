@@ -5,8 +5,8 @@
    for ESP32C3 SuperMini: gate 0, btn 1, LED 8 */
 
 bool toggle = false;
-uint16_t mins[2] = {60, 60*4}; // the loop duration.
-                               // default: {60, 60*4} = 1hr / 4hr. for testiŋ: {1, 4};
+uint16_t mins[2] = {30, 60*2}; // the loop duration.
+                               // default: {30, 60*2} = 30min / 2hr. for testiŋ: {1, 4};
 
 void delayMin(uint16_t min)
 {

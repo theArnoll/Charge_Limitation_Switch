@@ -2,6 +2,10 @@ The serial communication function is **still to be developed**. The current code
 
 ## A little USB stick that can switch VCC automatically by time based on CH552 or ATtiny85
 
+With loopback output checking feature to detect if the MOSFET's breaking.
+
+If the LED light is blinking, that means your MOSFET may starting to break, and could completely lose function within 36 hours. Don't ask me how do I know that and add this feature 💸
+
 ### BOM:
 
 | **Part name**             | **Suggested Model**                                                                                                                                            | **Amount**                                              | **Notes**                                                                                                             |
@@ -9,6 +13,7 @@ The serial communication function is **still to be developed**. The current code
 | **Board**                 | **[CH552](#the-way-to-start-using-ch552)**, **[ESP32C3 SuperMini]()** or **Digispark [ATtiny85](#the-way-to-flash-bootloader-to-an-attiny85)**                 | 1                                                       | It would be better if it comes with pin header.                                                                       |
 | **Board Socket**          | **CH552:** DIP-20 IC socket or 1×10 female header<br/>**ESP32C3 SuperMini:** DIP-16 IC socket or 1×8 female header<br/>**ATtiny85:** 1×6 and 1×3 female header | IC socket: 1<br/>Female header: 2 (each 1 for ATtiny85) | Prevent board wasting from wiring false or possible heat damaging                                                     |
 | **P-Channel MOSFET**      | **AO3401**                                                                                                                                                     | 1                                                       | Toggling VCC                                                                                                          |
+| **N-Channel MOSFET**      | **To be decide**                                                                                                                                               | 1                                                       | **ONLY needed if you're using a ESP32C3 SuperMini**<br/>Shifting 3V3 logic to 5V in order to control PMOS             |
 | **SMD-THT convert board** | **SOT-23 to DIP**                                                                                                                                              | 1                                                       | Make AO3401 be able to use on a perfboard                                                                             |
 | **MOSFET Connector**      | **1×3 pin header**                                                                                                                                             | 1                                                       | To connect AO3401 to perfboard<br/>I'm using 90° one, and the perfboard wiring is based on self-bended 90° pin header |
 | **Resistor**              | **220Ω, 10kΩ**                                                                                                                                                 | 1, 1                                                    | 1/4W. 220Ω for protection, 10kΩ for pull up.                                                                          |

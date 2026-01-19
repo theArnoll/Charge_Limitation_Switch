@@ -1,6 +1,8 @@
 #define gate 34
 #define btn 35
 #define onboardLED 30
+#define lo 11
+#define threshold 30  // 3V3, 8b ADC System would be 46, ESP32-C3 SuperMini should using mili volt thing and make it 600mV
 /* these are CH552 pin.
    for ESP32C3 SuperMini: gate 0, btn 1, LED 8 */
 
@@ -18,6 +20,10 @@ void delayMin(uint16_t min)
       while(digitalRead(btn) == LOW); 
       return; 
     }
+    if((analogRead(lo) >= threshold) && toggle) {
+      digitalWrite(onboardLED, !(digitalRead(onboardLED)));
+      delay(50);
+    }
   }
 }
 
@@ -27,6 +33,7 @@ void setup() {
   digitalWrite(gate, HIGH);
   pinMode(btn, INPUT_PULLUP);
   pinMode(onboardLED, OUTPUT);
+  pinMode(lo, INPUT);
 }
 
 
